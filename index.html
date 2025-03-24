@@ -1982,6 +1982,267 @@
                     0 0 30px currentColor;
             }
         }
+
+        /* Showcase Games Section */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .game-card {
+            height: 200px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transform: translateY(50px);
+            opacity: 0;
+            animation: fadeUp 1s ease forwards;
+            animation-delay: calc(var(--order) * 0.1s);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3),
+                        0 0 30px var(--accent-color);
+            z-index: 2;
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                rgba(0, 255, 170, 0.2),
+                rgba(42, 157, 244, 0.2),
+                rgba(255, 42, 117, 0.2)
+            );
+            background-size: 300% 300%;
+            animation: gradientBG 8s ease infinite;
+            z-index: -1;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .game-card-inner {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            height: 100%;
+            padding: 1.5rem;
+            background: linear-gradient(
+                to top,
+                rgba(0, 0, 0, 0.8) 0%,
+                rgba(0, 0, 0, 0.4) 60%,
+                transparent 100%
+            );
+            transition: all 0.3s ease;
+        }
+
+        .game-card:hover .game-card-inner {
+            background: linear-gradient(
+                to top,
+                rgba(0, 0, 0, 0.9) 0%,
+                rgba(0, 0, 0, 0.6) 60%,
+                rgba(0, 0, 0, 0.2) 100%
+            );
+        }
+
+        .game-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+            text-align: center;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .game-author {
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            text-align: center;
+        }
+
+        .showcase-bg {
+            background-image:
+                radial-gradient(circle at 30% 30%, rgba(0, 255, 170, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(42, 157, 244, 0.08) 0%, transparent 50%);
+        }
+
+        /* Rules Section */
+        .rules-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .rule-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            transform: translateY(50px);
+            opacity: 0;
+            animation: fadeUp 1s ease forwards;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .rule-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3),
+                        0 0 15px var(--accent-color);
+        }
+
+        .rule-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(
+                45deg,
+                var(--accent-color),
+                var(--tertiary-color),
+                var(--secondary-color)
+            );
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientText 8s ease infinite;
+        }
+
+        .rule-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .rule-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        .share-container {
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .share-text {
+            font-size: 1.5rem;
+            color: var(--text-color);
+        }
+
+        .hashtag-inline {
+            color: var(--secondary-color);
+            font-weight: 700;
+            position: relative;
+            text-shadow: 0 0 10px var(--secondary-color);
+        }
+
+        .rules-bg {
+            background-image:
+                radial-gradient(circle at 70% 30%, rgba(255, 42, 117, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 30% 70%, rgba(255, 204, 0, 0.08) 0%, transparent 50%);
+        }
+
+        /* Showcase decorations */
+        .showcase-decorations {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .game-element {
+            position: absolute;
+            opacity: 0.2;
+            filter: blur(1px);
+            animation: float 15s infinite alternate;
+        }
+
+        .game-controller {
+            width: 100px;
+            height: 60px;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzNiAyNCI+PHBhdGggZD0iTTMwIDZIMjRWM2MwLTEuNjUtMS4zNS0zLTMtM0gxNUM5LjkgMCA2IDMuOSA2IDl2MTJjMCAxLjY1IDEuMzUgMyAzIDNoNmMxLjY1IDAgMy0xLjM1IDMtM3YtM2g2YzMuMzEgMCA2LTIuNjkgNi02VjEyYzAtMy4zMS0yLjY5LTYtNi02ek0xMiAxMGgyVjhoM3YyaDJ2M2gtMnYyaC0zdi0yaC0ydi0zem0xOCA4YzAgMS4xLS45IDItMiAycy0yLS45LTItMiAuOS0yIDItMiAyIC45IDIgMnptMC02YzAgMS4xLS45IDItMiAycy0yLS45LTItMiAuOS0yIDItMiAyIC45IDIgMnoiIGZpbGw9IiMwMGZmYWEiLz48L3N2Zz4=');
+            background-size: contain;
+            background-repeat: no-repeat;
+            top: 10%;
+            right: 10%;
+        }
+
+        .game-joystick {
+            width: 80px;
+            height: 80px;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iMzAiIHN0cm9rZT0iI2ZmMmE3NSIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+PGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iMTAiIGZpbGw9IiNmZjJhNzUiLz48L3N2Zz4=');
+            background-size: contain;
+            background-repeat: no-repeat;
+            bottom: 20%;
+            left: 15%;
+            animation-delay: -5s;
+        }
+
+        .game-pixel {
+            width: 60px;
+            height: 60px;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3QgeD0iOCIgeT0iNCIgd2lkdGg9IjE2IiBoZWlnaHQ9IjgiIGZpbGw9IiMyYTlkZjQiLz48cmVjdCB4PSI0IiB5PSIxMiIgd2lkdGg9IjI0IiBoZWlnaHQ9IjgiIGZpbGw9IiMyYTlkZjQiLz48cmVjdCB4PSIxMiIgeT0iMjAiIHdpZHRoPSI0IiBoZWlnaHQ9IjgiIGZpbGw9IiMyYTlkZjQiLz48cmVjdCB4PSIyMCIgeT0iMjAiIHdpZHRoPSI0IiBoZWlnaHQ9IjgiIGZpbGw9IiMyYTlkZjQiLz48L3N2Zz4=');
+            background-size: contain;
+            background-repeat: no-repeat;
+            top: 40%;
+            left: 20%;
+            animation-delay: -10s;
+        }
+
+        .game-3d {
+            width: 120px;
+            height: 120px;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHBvbHlnb24gcG9pbnRzPSIzMiw0IDYwLDIwIDYwLDQ0IDMyLDYwIDQsMzQgNCwyMCIgc3Ryb2tlPSIjZmZjYzAwIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz48L3N2Zz4=');
+            background-size: contain;
+            background-repeat: no-repeat;
+            bottom: 10%;
+            right: 20%;
+            animation-delay: -7s;
+        }
+
+        .code-snippet {
+            position: absolute;
+            top: 70%;
+            left: 60%;
+            font-family: monospace;
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            text-shadow: 0 0 5px var(--accent-color);
+            opacity: 0.3;
+            animation: float 10s infinite alternate, glitch 5s infinite;
+            animation-delay: -3s;
+        }
     </style>
 </head>
 <body>
@@ -2261,6 +2522,163 @@
         <div class="section-background sponsors-bg"></div>
     </section>
 
+    <!-- Showcase of Vibecoded Games -->
+    <section id="showcase">
+        <div class="container">
+            <h2 class="section-title">Vibecoded Games Showcase</h2>
+            <div class="games-grid">
+                <a href="https://fly.pieter.com/" target="_blank" class="game-card">
+                    <div class="game-card-inner">
+                        <img src="fly_social_image.png" alt="Fly" class="game-image">
+                        <div class="game-title">Fly</div>
+                        <div class="game-author">pieter</div>
+                    </div>
+                </a>
+                <a href="https://vibesail.com/" target="_blank" class="game-card">
+                    <div class="game-card-inner">
+                        <img src="vibesail.png" alt="VibeSail" class="game-image">
+                        <div class="game-title">VibeSail</div>
+                        <div class="game-author">vibesail</div>
+                    </div>
+                </a>
+                <a href="https://fly.zullo.fun/" target="_blank" class="game-card">
+                    <div class="game-card-inner">
+                        <img src="fly-zullo-fun.png" alt="Fly Zullo" class="game-image">
+                        <div class="game-title">Fly Zullo</div>
+                        <div class="game-author">zullo</div>
+                    </div>
+                </a>
+                <a href="https://quack.kyzo.io/" target="_blank" class="game-card">
+                    <div class="game-card-inner">
+                        <img src="quack.png" alt="Quack" class="game-image">
+                        <div class="game-title">Quack</div>
+                        <div class="game-author">kyzo</div>
+                    </div>
+                </a>
+                <a href="https://metaverse-delta.vercel.app/" target="_blank" class="game-card">
+                    <div class="game-card-inner">
+                        <img src="metaverse.png" alt="Metaverse Delta" class="game-image">
+                        <div class="game-title">Metaverse Delta</div>
+                        <div class="game-author">metaverse</div>
+                    </div>
+                </a>
+                <a href="https://www.hotairvibe.com/" target="_blank" class="game-card">
+                    <div class="game-card-inner">
+                        <img src="hot-air-balloon.png" alt="Hot Air Vibe" class="game-image">
+                        <div class="game-title">Hot Air Vibe</div>
+                        <div class="game-author">hotairvibe</div>
+                    </div>
+                </a>
+                <a href="https://yachtvibes.app/" target="_blank" class="game-card">
+                    <div class="game-card-inner">
+                        <img src="yacht-vibes.png" alt="Yacht Vibes" class="game-image">
+                        <div class="game-title">Yacht Vibes</div>
+                        <div class="game-author">yachtvibes</div>
+                    </div>
+                </a>
+                <a href="https://collidingscopes.github.io/red-panda-vibes/" target="_blank" class="game-card">
+                    <div class="game-card-inner">
+                        <img src="red-panda.png" alt="Red Panda Vibes" class="game-image">
+                        <div class="game-title">Red Panda Vibes</div>
+                        <div class="game-author">collidingscopes</div>
+                    </div>
+                </a>
+                <a href="https://spacerunner01.netlify.app/" target="_blank" class="game-card">
+                    <div class="game-card-inner">
+                        <img src="SpaceRunner.png" alt="Space Runner" class="game-image">
+                        <div class="game-title">Space Runner</div>
+                        <div class="game-author">spacerunner</div>
+                    </div>
+                </a>
+                <a href="https://firstpersonflappy.com/" target="_blank" class="game-card">
+                    <div class="game-card-inner">
+                        <img src="flappy-preview.jpg" alt="First Person Flappy" class="game-image">
+                        <div class="game-title">First Person Flappy</div>
+                        <div class="game-author">firstpersonflappy</div>
+                    </div>
+                </a>
+                <a href="https://snowbrawl.world/" target="_blank" class="game-card">
+                    <div class="game-card-inner">
+                        <img src="snowbrawl.png" alt="Snow Brawl" class="game-image">
+                        <div class="game-title">Snow Brawl</div>
+                        <div class="game-author">snowbrawl</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="section-background showcase-bg"></div>
+        
+        <!-- Game-themed floating elements -->
+        <div class="showcase-decorations">
+            <div class="game-element game-controller"></div>
+            <div class="game-element game-joystick"></div>
+            <div class="game-element game-pixel"></div>
+            <div class="game-element game-3d"></div>
+            <div class="code-snippet">{vibe: true}</div>
+        </div>
+    </section>
+
+<style>
+.game-image {
+    width: 100%;
+    height: 160px;
+    object-fit: contain;
+    margin-bottom: 10px;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+}
+
+.game-card-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+}
+</style>
+
+    <!-- Game Jam Rules Section -->
+    <section id="rules">
+        <div class="container">
+            <h2 class="section-title">The Vibe Rules</h2>
+            <div class="rules-container">
+                <div class="rule-card">
+                    <div class="rule-icon">🎮</div>
+                    <h3>Open to All</h3>
+                    <p>The jam welcomes everyone to participate. No previous game development experience required!</p>
+                </div>
+                <div class="rule-card">
+                    <div class="rule-icon">🤖</div>
+                    <h3>AI-Powered</h3>
+                    <p>At least 80% of your game's code should be AI-generated. Embrace the future of development!</p>
+                </div>
+                <div class="rule-card">
+                    <div class="rule-icon">🌐</div>
+                    <h3>Web Accessible</h3>
+                    <p>Games must be playable directly in the browser with no login, signup, or payment barriers. Ideally on their own domain or subdomain.</p>
+                </div>
+                <div class="rule-card">
+                    <div class="rule-icon">👥</div>
+                    <h3>Multiplayer First</h3>
+                    <p>Design your game with multiplayer functionality as the default experience. Games are better together!</p>
+                </div>
+                <div class="rule-card">
+                    <div class="rule-icon">⚡</div>
+                    <h3>Instant Vibes</h3>
+                    <p>No loading screens or heavy downloads allowed! Players should be in the game almost instantly (asking for a username is okay).</p>
+                </div>
+                <div class="rule-card">
+                    <div class="rule-icon">🛠️</div>
+                    <h3>Engine Freedom</h3>
+                    <p>Use any game engine you prefer, though ThreeJS is often recommended for web-based vibecoded games.</p>
+                </div>
+            </div>
+            <div class="share-container">
+                <p class="share-text">Share your game development journey on X with <span class="hashtag-inline">#vibejam</span></p>
+            </div>
+        </div>
+        <div class="section-background rules-bg"></div>
+    </section>
+
     <footer>
         <div class="container">
             <p>© 2025 Vibe Coding Game Jam | <a href="http://jam.pieter.com" style="color: var(--accent-color); text-decoration: none;">jam.pieter.com</a></p>
@@ -2278,9 +2696,13 @@
             });
         }, { threshold: 0.1 });
 
-        // Observe all jury cards and sponsors
-        document.querySelectorAll('.jury-card, .sponsor').forEach(el => {
-            observer.observe(el);
+        // Observe all jury cards, sponsors, game cards, and rule cards
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.jury-card, .sponsor, .game-card, .rule-card').forEach((el, index) => {
+                // Set animation delay for staggered appearance
+                el.style.setProperty('--order', index);
+                observer.observe(el);
+            });
         });
 
         // Particle animation
