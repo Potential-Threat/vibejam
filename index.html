@@ -1,0 +1,2717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025 Vibe Coding Game Jam</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --bg-color: #0a0a0f;
+            --text-color: #ffffff;
+            --accent-color: #00ffaa;
+            --secondary-color: #ff2a75;
+            --tertiary-color: #2a9df4;
+            --quaternary-color: #ffcc00;
+            --quinary-color: #9933ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(42, 157, 244, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 42, 117, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(0, 255, 170, 0.05) 0%, transparent 70%);
+            animation: bgPulse 15s infinite alternate;
+        }
+
+        @keyframes bgPulse {
+            0% {
+                background-position: 0% 0%;
+            }
+            50% {
+                background-position: 100% 100%;
+            }
+            100% {
+                background-position: 0% 0%;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header styles */
+        header {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .grid-lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: -1;
+            transform: perspective(500px) rotateX(60deg);
+            transform-origin: center 70%;
+            animation: gridMove 20s linear infinite;
+        }
+
+        /* Add neon grid lines that pulse */
+        .grid-lines::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(0, 255, 170, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 42, 117, 0.1) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: -1;
+            transform: perspective(500px) rotateX(60deg);
+            transform-origin: center 70%;
+            animation: gridMoveFast 8s linear infinite, glowPulse 4s infinite alternate;
+        }
+
+        @keyframes gridMove {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 0 30px;
+            }
+        }
+
+        @keyframes gridMoveFast {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 0 60px;
+            }
+        }
+
+        @keyframes glowPulse {
+            0% {
+                opacity: 0.5;
+                filter: hue-rotate(0deg);
+            }
+            100% {
+                opacity: 1;
+                filter: hue-rotate(90deg);
+            }
+        }
+
+        .title {
+            font-size: 5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+            position: relative;
+            display: inline-block;
+            text-shadow: 0 0 10px rgba(0, 255, 170, 0.5);
+            animation: titlePulse 3s infinite alternate;
+        }
+
+        @keyframes titlePulse {
+            0% {
+                text-shadow: 0 0 10px rgba(0, 255, 170, 0.5);
+            }
+            100% {
+                text-shadow: 0 0 20px rgba(0, 255, 170, 0.8),
+                             0 0 30px rgba(0, 255, 170, 0.4),
+                             0 0 40px rgba(0, 255, 170, 0.2);
+            }
+        }
+
+        .title span {
+            display: block;
+        }
+
+        .title .highlight {
+            color: var(--accent-color);
+            position: relative;
+            background: linear-gradient(45deg, var(--accent-color), var(--tertiary-color), var(--secondary-color), var(--accent-color));
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientText 8s ease infinite;
+        }
+
+        @keyframes gradientText {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 0.8s;
+        }
+
+        .hashtag {
+            font-size: 2rem;
+            color: var(--tertiary-color);
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 1s;
+        }
+
+        @keyframes fadeUp {
+            from {
+                transform: translateY(40px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: var(--bg-color);
+            background: var(--accent-color);
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            opacity: 0;
+            animation: neonPulse 3s infinite alternate;
+            animation: fadeUp 1s ease forwards 1.2s;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, var(--accent-color), var(--tertiary-color));
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            transform: scaleX(1);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 255, 170, 0.2);
+        }
+
+        .deadline {
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 1.4s;
+        }
+
+        /* Floating elements */
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(10px);
+            opacity: 0.15;
+            animation: float 20s infinite;
+        }
+
+        .element-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--accent-color);
+            top: 10%;
+            left: 10%;
+            animation: float 20s infinite, colorChange 15s infinite alternate;
+        }
+
+        .element-2 {
+            width: 200px;
+            height: 200px;
+            background: var(--secondary-color);
+            top: 60%;
+            right: 20%;
+            animation: float 20s infinite -5s, colorChange 15s infinite -5s alternate-reverse;
+        }
+
+        .element-3 {
+            width: 250px;
+            height: 250px;
+            background: var(--tertiary-color);
+            bottom: 10%;
+            left: 30%;
+            animation: float 20s infinite -10s, colorChange 15s infinite -10s alternate;
+        }
+
+        /* Add more floating elements for more color */
+        .element-4 {
+            width: 180px;
+            height: 180px;
+            background: var(--quaternary-color);
+            top: 40%;
+            left: 70%;
+            animation: float 18s infinite -8s, colorChange 12s infinite -3s alternate-reverse;
+            opacity: 0.1;
+        }
+
+        .element-5 {
+            width: 220px;
+            height: 220px;
+            background: var(--quinary-color);
+            top: 20%;
+            right: 30%;
+            animation: float 22s infinite -15s, colorChange 18s infinite -8s alternate;
+            opacity: 0.1;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(50px, 20px) rotate(5deg);
+            }
+            50% {
+                transform: translate(10px, 40px) rotate(-5deg);
+            }
+            75% {
+                transform: translate(-30px, 10px) rotate(3deg);
+            }
+        }
+
+        @keyframes colorChange {
+            0% {
+                filter: hue-rotate(0deg) blur(10px);
+            }
+            100% {
+                filter: hue-rotate(360deg) blur(15px);
+            }
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background: var(--accent-color);
+            bottom: 0;
+            left: 0;
+        }
+
+        /* Jury Section */
+        .jury-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 2rem;
+            perspective: 1000px;
+        }
+
+        .jury-card {
+            background: transparent;
+            perspective: 1000px;
+            height: 320px;
+            transition: all 0.5s ease;
+            border: none;
+            transform: translateY(50px);
+            opacity: 0;
+            animation: fadeUp 1s ease forwards;
+        }
+
+        .jury-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+
+        .jury-card:hover .jury-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .jury-card-front, .jury-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+        }
+
+        .jury-card-front {
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.05) 0%,
+                rgba(255, 255, 255, 0.01) 100%
+            );
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        .jury-card-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(
+                45deg,
+                rgba(0, 0, 0, 0.8) 0%,
+                rgba(0, 40, 70, 0.8) 100%
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .jury-bio {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+        }
+
+        .tech-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgc3Ryb2tlPSIjMDBmZmFhIiBzdHJva2Utd2lkdGg9IjAuNSIgZmlsbD0ibm9uZSIgLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIzMCIgc3Ryb2tlPSIjMDBmZmFhIiBzdHJva2Utd2lkdGg9IjAuNSIgZmlsbD0ibm9uZSIgLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIyMCIgc3Ryb2tlPSIjMDBmZmFhIiBzdHJva2Utd2lkdGg9IjAuNSIgZmlsbD0ibm9uZSIgLz48cGF0aCBkPSJNMjAgODBMODAgMjAiIHN0cm9rZT0iIzAwZmZhYSIgc3Ryb2tlLXdpZHRoPSIwLjUiIGZpbGw9Im5vbmUiIC8+PHBhdGggZD0iTTIwIDIwTDgwIDgwIiBzdHJva2U9IiMwMGZmYWEiIHN0cm9rZS13aWR0aD0iMC41IiBmaWxsPSJub25lIiAvPjwvc3ZnPg==');
+            background-size: 150%;
+            background-position: center;
+            opacity: 0.2;
+            z-index: 1;
+            animation: rotateBg 20s linear infinite;
+        }
+
+        @keyframes rotateBg {
+            0% {
+                transform: rotate(0deg);
+                background-size: 150%;
+            }
+            50% {
+                background-size: 200%;
+            }
+            100% {
+                transform: rotate(360deg);
+                background-size: 150%;
+            }
+        }
+
+        .card-shine {
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.03) 40%,
+                rgba(255, 255, 255, 0.1) 50%,
+                rgba(255, 255, 255, 0.03) 60%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+            animation: shine 6s infinite linear;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) rotate(45deg);
+            }
+            100% {
+                transform: translateX(100%) rotate(45deg);
+            }
+        }
+
+        .jury-card:hover .profile-img {
+            transform: scale(1.1);
+            border-width: 3px;
+            border-color: var(--tertiary-color);
+            box-shadow:
+                0 0 20px rgba(42, 157, 244, 0.8),
+                0 0 40px rgba(42, 157, 244, 0.4);
+        }
+
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            border: 2px solid var(--accent-color);
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: all 0.5s ease;
+            box-shadow: 0 0 15px rgba(0, 255, 170, 0.5);
+            z-index: 2;
+        }
+
+        .section-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(42, 157, 244, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 42, 117, 0.05) 0%, transparent 50%);
+            z-index: -1;
+            animation: sectionBgPulse 15s infinite alternate;
+        }
+
+        @keyframes sectionBgPulse {
+            0% {
+                opacity: 0.5;
+                background-position: 0% 0%;
+            }
+            100% {
+                opacity: 1;
+                background-position: 100% 100%;
+            }
+        }
+
+        /* Sponsors Section */
+        .sponsors-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 3rem;
+            perspective: 1000px;
+        }
+
+        .sponsor {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 3rem;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            transition: all 0.5s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transform: translateY(50px);
+            opacity: 0;
+            animation: fadeUp 1s ease forwards;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
+            z-index: 1;
+        }
+
+        .sponsor-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            border-radius: 15px;
+        }
+
+        .bolt-glow {
+            background: radial-gradient(circle at center, rgba(255, 123, 0, 0.4) 0%, transparent 70%);
+            box-shadow: 0 0 30px rgba(255, 123, 0, 0.4);
+        }
+
+        .rabbit-glow {
+            background: radial-gradient(circle at center, rgba(153, 51, 255, 0.4) 0%, transparent 70%);
+            box-shadow: 0 0 30px rgba(153, 51, 255, 0.4);
+        }
+
+        .sponsor:hover .sponsor-glow {
+            opacity: 1;
+            animation: glowPulse 2s infinite alternate;
+        }
+
+        .sponsor-logo {
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+            margin-bottom: 1.5rem;
+            transition: all 0.6s ease;
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+            z-index: 2;
+        }
+
+        .sponsor:hover .sponsor-logo {
+            transform: scale(1.1) rotate(5deg);
+            filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.6));
+        }
+
+        .bolt.sponsor-handle a {
+            text-shadow: 0 0 8px rgba(255, 123, 0, 0.7);
+            transition: all 0.3s ease;
+        }
+
+        .coderabbit.sponsor-handle a {
+            text-shadow: 0 0 8px rgba(153, 51, 255, 0.7);
+            transition: all 0.3s ease;
+        }
+
+        .sponsor:hover .bolt.sponsor-handle a {
+            text-shadow: 0 0 15px rgba(255, 123, 0, 0.9);
+        }
+
+        .sponsor:hover .coderabbit.sponsor-handle a {
+            text-shadow: 0 0 15px rgba(153, 51, 255, 0.9);
+        }
+
+        .sponsor-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .bolt-particles::before,
+        .bolt-particles::after,
+        .rabbit-particles::before,
+        .rabbit-particles::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            opacity: 0;
+            z-index: 0;
+        }
+
+        .bolt-particles::before,
+        .bolt-particles::after {
+            background-color: rgba(255, 123, 0, 0.8);
+        }
+
+        .rabbit-particles::before,
+        .rabbit-particles::after {
+            background-color: rgba(153, 51, 255, 0.8);
+        }
+
+        .sponsor:hover .bolt-particles::before {
+            animation: particleMove1 3s infinite;
+        }
+
+        .sponsor:hover .bolt-particles::after {
+            animation: particleMove2 4s infinite 1s;
+        }
+
+        .sponsor:hover .rabbit-particles::before {
+            animation: particleMove1 3.5s infinite 0.5s;
+        }
+
+        .sponsor:hover .rabbit-particles::after {
+            animation: particleMove2 4.5s infinite 1.5s;
+        }
+
+        @keyframes particleMove1 {
+            0% {
+                top: 100%;
+                left: 50%;
+                opacity: 0;
+                width: 5px;
+                height: 5px;
+            }
+            20% {
+                opacity: 1;
+                width: 10px;
+                height: 10px;
+            }
+            80% {
+                opacity: 1;
+                width: 5px;
+                height: 5px;
+            }
+            100% {
+                top: 0%;
+                left: 20%;
+                opacity: 0;
+                width: 2px;
+                height: 2px;
+            }
+        }
+
+        @keyframes particleMove2 {
+            0% {
+                top: 100%;
+                left: 30%;
+                opacity: 0;
+                width: 6px;
+                height: 6px;
+            }
+            20% {
+                opacity: 1;
+                width: 12px;
+                height: 12px;
+            }
+            80% {
+                opacity: 1;
+                width: 6px;
+                height: 6px;
+            }
+            100% {
+                top: 10%;
+                left: 80%;
+                opacity: 0;
+                width: 3px;
+                height: 3px;
+            }
+        }
+
+        .sponsors-bg {
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(255, 123, 0, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(153, 51, 255, 0.08) 0%, transparent 50%);
+        }
+
+        .sponsor-handle {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .sponsor-handle a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .bolt {
+            color: #ff7b00;
+        }
+
+        .coderabbit {
+            color: #a64eff;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .title {
+                font-size: 4rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 3rem;
+            }
+
+            .jury-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+
+            .subtitle {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .title {
+                font-size: 2.5rem;
+            }
+
+            .jury-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hashtag {
+                font-size: 1.5rem;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Enhanced Hero Section */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .animated-dots {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .code-rain {
+            position: absolute;
+            top: -100px;
+            right: 0;
+            width: 20%;
+            height: 120%;
+            overflow: hidden;
+            opacity: 0.4;
+            z-index: -1;
+        }
+
+        .code-rain::before {
+            content: '01010100 01101000 01100101 00100000 01110110 01101001 01100010 01100101 00100000 01101001 01110011 00100000 01110010 01100101 01100001 01101100';
+            position: absolute;
+            color: var(--accent-color);
+            font-family: monospace;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            white-space: break-spaces;
+            writing-mode: vertical-rl;
+            transform: rotateY(180deg);
+            animation: codeRain 20s linear infinite;
+            text-shadow: 0 0 5px var(--accent-color);
+        }
+
+        @keyframes codeRain {
+            0% {
+                transform: translateY(-100%) rotateY(180deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100%) rotateY(180deg);
+                opacity: 0;
+            }
+        }
+
+        /* Rotating Cube */
+        .hero-animation {
+            position: absolute;
+            right: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            perspective: 1000px;
+            z-index: 1;
+        }
+
+        .rotating-cube {
+            width: 150px;
+            height: 150px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotateCube 20s infinite linear;
+        }
+
+        @keyframes rotateCube {
+            0% {
+                transform: rotateX(0deg) rotateY(0deg);
+            }
+            100% {
+                transform: rotateX(360deg) rotateY(360deg);
+            }
+        }
+
+        .cube-face {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border: 2px solid var(--accent-color);
+            opacity: 0.7;
+            box-shadow: 0 0 10px var(--accent-color), inset 0 0 10px var(--accent-color);
+            background-color: rgba(0, 255, 170, 0.05);
+        }
+
+        .front {
+            transform: translateZ(75px);
+        }
+
+        .back {
+            transform: rotateY(180deg) translateZ(75px);
+        }
+
+        .right {
+            transform: rotateY(90deg) translateZ(75px);
+        }
+
+        .left {
+            transform: rotateY(-90deg) translateZ(75px);
+        }
+
+        .top {
+            transform: rotateX(90deg) translateZ(75px);
+        }
+
+        .bottom {
+            transform: rotateX(-90deg) translateZ(75px);
+        }
+
+        /* Enhanced Button */
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: var(--bg-color);
+            background: var(--accent-color);
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 1.2s;
+        }
+
+        .button-glow {
+            position: absolute;
+            top: -20%;
+            left: -20%;
+            width: 140%;
+            height: 140%;
+            background: radial-gradient(
+                circle,
+                rgba(0, 255, 170, 0.8) 0%,
+                rgba(0, 255, 170, 0.4) 20%,
+                rgba(0, 255, 170, 0) 70%
+            );
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            mix-blend-mode: screen;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .cta-button:hover .button-glow {
+            opacity: 1;
+            animation: pulseGlow 2s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+        }
+
+        /* Animated dots for background */
+        .animated-dots::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(var(--accent-color) 1px, transparent 1px),
+                            radial-gradient(var(--secondary-color) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+            opacity: 0.2;
+            animation: dotsBreathe 8s infinite alternate;
+        }
+
+        @keyframes dotsBreathe {
+            0% {
+                opacity: 0.1;
+                background-size: 40px 40px;
+            }
+            100% {
+                opacity: 0.3;
+                background-size: 50px 50px;
+            }
+        }
+
+        /* Game-related Elements and Additional Animations */
+        .game-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .game-controller {
+            position: absolute;
+            width: 60px;
+            height: 40px;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzNiAyNCI+PHBhdGggZD0iTTMwIDZIMjRWM2MwLTEuNjUtMS4zNS0zLTMtM0gxNUM5LjkgMCA2IDMuOSA2IDl2MTJjMCAxLjY1IDEuMzUgMyAzIDNoNmMxLjY1IDAgMy0xLjM1IDMtM3YtM2g2YzMuMzEgMCA2LTIuNjkgNi02VjEyYzAtMy4zMS0yLjY5LTYtNi02ek0xMiAxMGgyVjhoM3YyaDJ2M2gtMnYyaC0zdi0yaC0ydi0zem0xOCA4YzAgMS4xLS45IDItMiAycy0yLS45LTItMiAuOS0yIDItMiAyIC45IDIgMnptMC02YzAgMS4xLS45IDItMiAycy0yLS45LTItMiAuOS0yIDItMiAyIC45IDIgMnoiIGZpbGw9IiMwMGZmYWEiLz48L3N2Zz4=');
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.4;
+            filter: drop-shadow(0 0 8px var(--accent-color));
+            animation: floatGame 25s infinite linear;
+        }
+
+        .game-controller:nth-child(2n) {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzNiAyNCI+PHBhdGggZD0iTTMwIDZIMjRWM2MwLTEuNjUtMS4zNS0zLTMtM0gxNUM5LjkgMCA2IDMuOSA2IDl2MTJjMCAxLjY1IDEuMzUgMyAzIDNoNmMxLjY1IDAgMy0xLjM1IDMtM3YtM2g2YzMuMzEgMCA2LTIuNjkgNi02VjEyYzAtMy4zMS0yLjY5LTYtNi02ek0xMiAxMGgyVjhoM3YyaDJ2M2gtMnYyaC0zdi0yaC0ydi0zem0xOCA4YzAgMS4xLS45IDItMiAycy0yLS45LTItMiAuOS0yIDItMiAyIC45IDIgMnptMC02YzAgMS4xLS45IDItMiAycy0yLS45LTItMiAuOS0yIDItMiAyIC45IDIgMnoiIGZpbGw9IiNmZjJhNzUiLz48L3N2Zz4=');
+        }
+
+        .game-controller:nth-child(3n) {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzNiAyNCI+PHBhdGggZD0iTTMwIDZIMjRWM2MwLTEuNjUtMS4zNS0zLTMtM0gxNUM5LjkgMCA2IDMuOSA2IDl2MTJjMCAxLjY1IDEuMzUgMyAzIDNoNmMxLjY1IDAgMy0xLjM1IDMtM3YtM2g2YzMuMzEgMCA2LTIuNjkgNi02VjEyYzAtMy4zMS0yLjY5LTYtNi02ek0xMiAxMGgyVjhoM3YyaDJ2M2gtMnYyaC0zdi0yaC0ydi0zem0xOCA4YzAgMS4xLS45IDItMiAycy0yLS45LTItMiAuOS0yIDItMiAyIC45IDIgMnptMC02YzAgMS4xLS45IDItMiAycy0yLS45LTItMiAuOS0yIDItMiAyIC45IDIgMnoiIGZpbGw9IiMyYTlkZjQiLz48L3N2Zz4=');
+        }
+
+        @keyframes floatGame {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(80px, 40px) rotate(15deg);
+            }
+            50% {
+                transform: translate(30px, 100px) rotate(-10deg);
+            }
+            75% {
+                transform: translate(-60px, 30px) rotate(5deg);
+            }
+        }
+
+        .pixel-character {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3QgeD0iOCIgeT0iNCIgd2lkdGg9IjE2IiBoZWlnaHQ9IjgiIGZpbGw9IiMwMGZmYWEiLz48cmVjdCB4PSI0IiB5PSIxMiIgd2lkdGg9IjI0IiBoZWlnaHQ9IjgiIGZpbGw9IiMwMGZmYWEiLz48cmVjdCB4PSIxMiIgeT0iMjAiIHdpZHRoPSI0IiBoZWlnaHQ9IjgiIGZpbGw9IiMwMGZmYWEiLz48cmVjdCB4PSIyMCIgeT0iMjAiIHdpZHRoPSI0IiBoZWlnaHQ9IjgiIGZpbGw9IiMwMGZmYWEiLz48L3N2Zz4=');
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.4;
+            filter: drop-shadow(0 0 5px var(--accent-color));
+            animation: pixelWalk 30s infinite linear;
+        }
+
+        .pixel-character:nth-child(2n) {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3QgeD0iOCIgeT0iNCIgd2lkdGg9IjE2IiBoZWlnaHQ9IjgiIGZpbGw9IiNmZjJhNzUiLz48cmVjdCB4PSI0IiB5PSIxMiIgd2lkdGg9IjI0IiBoZWlnaHQ9IjgiIGZpbGw9IiNmZjJhNzUiLz48cmVjdCB4PSIxMiIgeT0iMjAiIHdpZHRoPSI0IiBoZWlnaHQ9IjgiIGZpbGw9IiNmZjJhNzUiLz48cmVjdCB4PSIyMCIgeT0iMjAiIHdpZHRoPSI0IiBoZWlnaHQ9IjgiIGZpbGw9IiNmZjJhNzUiLz48L3N2Zz4=');
+            animation-delay: -5s;
+        }
+
+        .pixel-character:nth-child(3n) {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3QgeD0iOCIgeT0iNCIgd2lkdGg9IjE2IiBoZWlnaHQ9IjgiIGZpbGw9IiMyYTlkZjQiLz48cmVjdCB4PSI0IiB5PSIxMiIgd2lkdGg9IjI0IiBoZWlnaHQ9IjgiIGZpbGw9IiMyYTlkZjQiLz48cmVjdCB4PSIxMiIgeT0iMjAiIHdpZHRoPSI0IiBoZWlnaHQ9IjgiIGZpbGw9IiMyYTlkZjQiLz48cmVjdCB4PSIyMCIgeT0iMjAiIHdpZHRoPSI0IiBoZWlnaHQ9IjgiIGZpbGw9IiMyYTlkZjQiLz48L3N2Zz4=');
+            animation-delay: -10s;
+        }
+
+        @keyframes pixelWalk {
+            0% {
+                transform: translateX(-100px) translateY(50px);
+            }
+            100% {
+                transform: translateX(calc(100vw + 100px)) translateY(50px);
+            }
+        }
+
+        /* 3D Shapes */
+        .shape-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            perspective: 1000px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .spinning-pyramid {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 80px solid rgba(0, 255, 170, 0.15);
+            transform-style: preserve-3d;
+            animation: spinPyramid 15s infinite linear;
+        }
+
+        @keyframes spinPyramid {
+            0% {
+                transform: rotateX(0deg) rotateY(0deg);
+            }
+            100% {
+                transform: rotateX(360deg) rotateY(720deg);
+            }
+        }
+
+        .spinning-sphere {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%,
+                rgba(255, 42, 117, 0.4) 0%,
+                rgba(153, 51, 255, 0.2) 70%);
+            box-shadow:
+                inset 0 0 20px rgba(255, 255, 255, 0.5),
+                0 0 20px rgba(255, 42, 117, 0.4);
+            transform-style: preserve-3d;
+            animation: pulseSphere 10s infinite alternate;
+        }
+
+        @keyframes pulseSphere {
+            0% {
+                transform: scale(0.8) rotateZ(0deg);
+                box-shadow:
+                    inset 0 0 20px rgba(255, 255, 255, 0.5),
+                    0 0 20px rgba(255, 42, 117, 0.4);
+            }
+            50% {
+                transform: scale(1.2) rotateZ(180deg);
+                box-shadow:
+                    inset 0 0 30px rgba(255, 255, 255, 0.7),
+                    0 0 40px rgba(42, 157, 244, 0.6);
+            }
+            100% {
+                transform: scale(0.8) rotateZ(360deg);
+                box-shadow:
+                    inset 0 0 20px rgba(255, 255, 255, 0.5),
+                    0 0 20px rgba(0, 255, 170, 0.4);
+            }
+        }
+
+        .diamond {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border: 40px solid transparent;
+            border-bottom-color: rgba(255, 204, 0, 0.2);
+            position: relative;
+            top: -40px;
+            animation: rotateDiamond 20s infinite linear;
+        }
+
+        .diamond:after {
+            content: '';
+            position: absolute;
+            left: -40px;
+            top: 40px;
+            width: 0;
+            height: 0;
+            border: 40px solid transparent;
+            border-top-color: rgba(255, 204, 0, 0.2);
+        }
+
+        @keyframes rotateDiamond {
+            0% {
+                transform: rotate(0deg);
+                filter: hue-rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+                filter: hue-rotate(360deg);
+            }
+        }
+
+        /* Circuit board pattern */
+        .circuit-board {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image:
+                linear-gradient(var(--accent-color) 0.5px, transparent 0.5px),
+                linear-gradient(90deg, var(--accent-color) 0.5px, transparent 0.5px),
+                linear-gradient(var(--tertiary-color) 0.25px, transparent 0.25px),
+                linear-gradient(90deg, var(--tertiary-color) 0.25px, transparent 0.25px);
+            background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+            z-index: -3;
+            animation: circuitPulse 10s infinite alternate;
+        }
+
+        @keyframes circuitPulse {
+            0% {
+                opacity: 0.05;
+                background-position: 0px 0px, 0px 0px, 0px 0px, 0px 0px;
+            }
+            100% {
+                opacity: 0.15;
+                background-position: 10px 10px, 10px 10px, 5px 5px, 5px 5px;
+            }
+        }
+
+        /* Glowing buttons */
+        .game-buttons {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .game-button {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            animation: buttonPulse 3s infinite alternate;
+            box-shadow: 0 0 10px var(--accent-color);
+        }
+
+        .game-button:nth-child(2n) {
+            background-color: var(--secondary-color);
+            box-shadow: 0 0 10px var(--secondary-color);
+            animation-delay: -1s;
+        }
+
+        .game-button:nth-child(3n) {
+            background-color: var(--tertiary-color);
+            box-shadow: 0 0 10px var(--tertiary-color);
+            animation-delay: -2s;
+        }
+
+        .game-button:nth-child(4n) {
+            background-color: var(--quaternary-color);
+            box-shadow: 0 0 10px var(--quaternary-color);
+            animation-delay: -1.5s;
+        }
+
+        @keyframes buttonPulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+        }
+
+        /* Enhanced Animations */
+        @keyframes glitch {
+            0%, 100% {
+                clip-path: inset(50% 0 30% 0);
+                transform: skew(0.5deg);
+            }
+            20% {
+                clip-path: inset(10% 0 70% 0);
+                transform: skew(-0.5deg);
+            }
+            40% {
+                clip-path: inset(30% 0 40% 0);
+                transform: skew(0.8deg);
+            }
+            60% {
+                clip-path: inset(50% 0 12% 0);
+                transform: skew(-0.3deg);
+            }
+            80% {
+                clip-path: inset(60% 0 23% 0);
+                transform: skew(0.4deg);
+            }
+        }
+
+        /* Additional rotating cube */
+        .rotating-tetrahedron {
+            position: absolute;
+            top: 40%;
+            left: 10%;
+            width: 100px;
+            height: 100px;
+            transform-style: preserve-3d;
+            animation: rotateTetra 25s infinite linear;
+            opacity: 0.4;
+        }
+
+        .tetra-face {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 86.6px solid var(--accent-color);
+            opacity: 0.3;
+        }
+
+        .tetra-face:nth-child(1) {
+            transform: rotateY(0deg) translateZ(43.3px) rotateX(19.5deg);
+        }
+
+        .tetra-face:nth-child(2) {
+            transform: rotateY(120deg) translateZ(43.3px) rotateX(19.5deg);
+        }
+
+        .tetra-face:nth-child(3) {
+            transform: rotateY(240deg) translateZ(43.3px) rotateX(19.5deg);
+        }
+
+        .tetra-face:nth-child(4) {
+            transform: rotateY(0deg) translateZ(-43.3px) rotateX(160.5deg);
+        }
+
+        @keyframes rotateTetra {
+            0% {
+                transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+            }
+            100% {
+                transform: rotateX(360deg) rotateY(720deg) rotateZ(360deg);
+            }
+        }
+
+        /* Pixel art cloud */
+        .pixel-cloud {
+            position: absolute;
+            width: 80px;
+            height: 50px;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MCA1MCI+PHJlY3QgeD0iMjAiIHk9IjIwIiB3aWR0aD0iNDAiIGhlaWdodD0iMTAiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9IjAuNSIvPjxyZWN0IHg9IjEwIiB5PSIzMCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjUiLz48cmVjdCB4PSIzMCIgeT0iMTAiIHdpZHRoPSIyMCIgaGVpZ2h0PSIxMCIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC41Ii8+PC9zdmc+');
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.3;
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+            animation: cloudFloat 40s infinite linear;
+        }
+
+        @keyframes cloudFloat {
+            0% {
+                transform: translateX(-100px) translateY(-50px);
+            }
+            100% {
+                transform: translateX(calc(100vw + 100px)) translateY(-50px);
+            }
+        }
+
+        /* Enhanced Jury Section with Individual Animations */
+        .jury-section {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 6rem 0;
+            overflow: hidden;
+        }
+
+        .jury-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8rem;
+        }
+
+        .jury-member {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 3rem 0;
+            position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+        }
+
+        .jury-member.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .jury-member-even {
+            flex-direction: row-reverse;
+        }
+
+        .jury-image-container {
+            flex: 0 0 260px;
+            height: 260px;
+            position: relative;
+            z-index: 2;
+            transform-style: preserve-3d;
+            transition: all 0.5s ease;
+        }
+
+        .jury-image-container:hover {
+            transform: perspective(1000px) rotateY(15deg) translateZ(20px);
+        }
+
+        .jury-profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+            position: relative;
+            z-index: 2;
+            transition: all 0.5s ease;
+            border: 3px solid var(--accent-color);
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                0 0 20px var(--accent-color);
+        }
+
+        .jury-info {
+            flex: 0 0 60%;
+            position: relative;
+            z-index: 2;
+            transition: all 0.5s ease;
+        }
+
+        .jury-name {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .jury-specialty {
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 255, 170, 0.1);
+            border-radius: 30px;
+            border: 1px solid rgba(0, 255, 170, 0.2);
+        }
+
+        .jury-bio-expanded {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            position: relative;
+            max-width: 80%;
+        }
+
+        .jury-social {
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .jury-social a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-color);
+            gap: 0.5rem;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .jury-social a:hover {
+            color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .twitter-icon {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        /* Unique backgrounds for each jury member */
+        .jury-member-bg {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            z-index: 1;
+            opacity: 0.15;
+            transition: all 0.5s ease;
+            pointer-events: none;
+        }
+
+        .jury-member:hover .jury-member-bg {
+            opacity: 0.25;
+            filter: hue-rotate(20deg);
+        }
+
+        /* Karpathy - AI themed background */
+        .karpathy-bg {
+            background:
+                radial-gradient(circle at 30% 30%, rgba(0, 255, 170, 0.3) 0%, transparent 50%),
+                linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 255, 170, 0.1) 100%);
+        }
+
+        .karpathy-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .neural-connection {
+            position: absolute;
+            background-color: var(--accent-color);
+            width: 2px;
+            height: 2px;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: neuralPulse 3s infinite linear;
+            box-shadow: 0 0 8px var(--accent-color);
+        }
+
+        @keyframes neuralPulse {
+            0% {
+                opacity: 0;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.4;
+                transform: scale(1.5);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1);
+            }
+        }
+
+        /* Soret - Pixel art themed background */
+        .soret-bg {
+            background:
+                radial-gradient(circle at 70% 30%, rgba(255, 42, 117, 0.3) 0%, transparent 50%),
+                linear-gradient(135deg, rgba(0, 0, 0, 0) 0%, rgba(255, 42, 117, 0.1) 100%);
+        }
+
+        .pixel-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(255, 42, 117, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 42, 117, 0.1) 1px, transparent 1px);
+            background-size: 10px 10px;
+            z-index: 1;
+        }
+
+        .pixel-art {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            z-index: 1;
+            opacity: 0.4;
+            animation: pixelFloat 10s infinite linear;
+        }
+
+        @keyframes pixelFloat {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(20px, -10px) rotate(5deg);
+            }
+            50% {
+                transform: translate(0, -20px) rotate(0deg);
+            }
+            75% {
+                transform: translate(-20px, -10px) rotate(-5deg);
+            }
+        }
+
+        /* Cabello - 3D/WebGL themed background */
+        .cabello-bg {
+            background:
+                radial-gradient(circle at 30% 70%, rgba(42, 157, 244, 0.3) 0%, transparent 50%),
+                linear-gradient(225deg, rgba(0, 0, 0, 0) 0%, rgba(42, 157, 244, 0.1) 100%);
+        }
+
+        .three-scene {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            perspective: 800px;
+        }
+
+        .three-object {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            transform-style: preserve-3d;
+            animation: rotate3D 15s infinite linear;
+            opacity: 0.4;
+        }
+
+        .three-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 1px solid rgba(42, 157, 244, 0.8);
+            box-shadow: 0 0 15px rgba(42, 157, 244, 0.5);
+            background-color: rgba(42, 157, 244, 0.1);
+        }
+
+        @keyframes rotate3D {
+            0% {
+                transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+            }
+            100% {
+                transform: rotateX(360deg) rotateY(720deg) rotateZ(360deg);
+            }
+        }
+
+        /* S13K - Generative art themed background */
+        .s13k-bg {
+            background:
+                radial-gradient(circle at 70% 70%, rgba(255, 204, 0, 0.3) 0%, transparent 50%),
+                linear-gradient(315deg, rgba(0, 0, 0, 0) 0%, rgba(255, 204, 0, 0.1) 100%);
+        }
+
+        .generative-art {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .gen-element {
+            position: absolute;
+            border-radius: 50%;
+            background: transparent;
+            border: 1px solid rgba(255, 204, 0, 0.6);
+            opacity: 0.2;
+            transform-origin: center;
+            animation: genSpin 20s infinite linear;
+        }
+
+        @keyframes genSpin {
+            0% {
+                transform: rotate(0deg) translateX(0) translateY(0);
+                border-radius: 50%;
+            }
+            25% {
+                border-radius: 40% 60% 60% 40%;
+            }
+            50% {
+                transform: rotate(180deg) translateX(20px) translateY(20px);
+                border-radius: 30% 70% 70% 30%;
+            }
+            75% {
+                border-radius: 40% 60% 60% 40%;
+            }
+            100% {
+                transform: rotate(360deg) translateX(0) translateY(0);
+                border-radius: 50%;
+            }
+        }
+
+        /* Levels - Indie maker themed background */
+        .levels-bg {
+            background:
+                radial-gradient(circle at 30% 30%, rgba(153, 51, 255, 0.3) 0%, transparent 50%),
+                linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(153, 51, 255, 0.1) 100%);
+        }
+
+        .maker-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .maker-icon {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            opacity: 0.4;
+            transform-origin: center;
+            animation: makerFloat 15s infinite linear;
+        }
+
+        @keyframes makerFloat {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 0.2;
+            }
+            50% {
+                transform: translate(30px, -30px) rotate(180deg);
+                opacity: 0.4;
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .jury-member, .jury-member-even {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 3rem;
+            }
+
+            .jury-info {
+                flex: 0 0 100%;
+            }
+
+            .jury-bio-expanded {
+                max-width: 100%;
+            }
+
+            .jury-social {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-bg">
+            <div class="grid-lines"></div>
+            <div class="floating-elements">
+                <div class="floating-element element-1"></div>
+                <div class="floating-element element-2"></div>
+                <div class="floating-element element-3"></div>
+                <div class="floating-element element-4"></div>
+                <div class="floating-element element-5"></div>
+            </div>
+            <div class="animated-dots"></div>
+            <div class="circuit-board"></div>
+
+            <div class="game-elements">
+                <div class="game-controller" style="top: 20%; left: 15%;"></div>
+                <div class="game-controller" style="top: 70%; left: 75%;"></div>
+                <div class="game-controller" style="top: 40%; left: 65%;"></div>
+                <div class="pixel-character" style="top: 30%;"></div>
+                <div class="pixel-character" style="top: 60%;"></div>
+                <div class="pixel-character" style="top: 80%;"></div>
+                <div class="pixel-cloud" style="top: 15%; left: 20%;"></div>
+                <div class="pixel-cloud" style="top: 25%; left: 60%;"></div>
+            </div>
+
+            <div class="shape-container">
+                <div class="spinning-pyramid" style="top: 30%; left: 20%;"></div>
+                <div class="spinning-pyramid" style="top: 65%; left: 80%;"></div>
+                <div class="spinning-sphere" style="top: 20%; left: 70%;"></div>
+                <div class="spinning-sphere" style="top: 75%; left: 25%;"></div>
+                <div class="diamond" style="top: 40%; left: 50%;"></div>
+            </div>
+
+            <div class="rotating-tetrahedron">
+                <div class="tetra-face"></div>
+                <div class="tetra-face"></div>
+                <div class="tetra-face"></div>
+                <div class="tetra-face"></div>
+            </div>
+
+            <div class="game-buttons">
+                <div class="game-button" style="top: 10%; left: 10%;"></div>
+                <div class="game-button" style="top: 20%; left: 85%;"></div>
+                <div class="game-button" style="top: 50%; left: 30%;"></div>
+                <div class="game-button" style="top: 75%; left: 65%;"></div>
+                <div class="game-button" style="top: 60%; left: 15%;"></div>
+                <div class="game-button" style="top: 35%; left: 75%;"></div>
+                <div class="game-button" style="top: 85%; left: 45%;"></div>
+                <div class="game-button" style="top: 15%; left: 50%;"></div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="title">
+                    <span>2025</span>
+                    <span class="highlight">Vibe Coding</span>
+                    <span>Game Jam</span>
+                </h1>
+                <p class="subtitle">The first game jam for AI vibecoded games</p>
+                <p class="hashtag">#vibejam</p>
+                <a href="http://jam.pieter.com" class="cta-button">
+                    <span>SUBMIT YOUR GAME</span>
+                    <div class="button-glow"></div>
+                </a>
+                <p class="deadline">Deadline: April 1st, 2025</p>
+            </div>
+            <div class="hero-animation">
+                <div class="code-rain"></div>
+                <div class="rotating-cube">
+                    <div class="cube-face front"></div>
+                    <div class="cube-face back"></div>
+                    <div class="cube-face right"></div>
+                    <div class="cube-face left"></div>
+                    <div class="cube-face top"></div>
+                    <div class="cube-face bottom"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="jury" class="jury-section">
+        <div class="container">
+            <h2 class="section-title">Jury</h2>
+            <div class="jury-container">
+                <!-- Andrej Karpathy -->
+                <div class="jury-member" id="karpathy">
+                    <div class="jury-image-container">
+                        <img src="https://pbs.twimg.com/profile_images/1296667294148382721/9Pr6XrPB_400x400.jpg" alt="Andrej Karpathy" class="jury-profile-img">
+                    </div>
+                    <div class="jury-info">
+                        <h3 class="jury-name">Andrej Karpathy</h3>
+                        <div class="jury-specialty">AI Researcher & Engineer</div>
+                        <p class="jury-bio-expanded">Former Director of AI at Tesla and founding member of OpenAI. Andrej is known for his contributions to deep learning, neural networks, and computer vision. His work includes creating micrograd and minGPT, open-source educational tools that have helped countless developers understand the fundamentals of machine learning.</p>
+                        <div class="jury-social">
+                            <a href="https://twitter.com/karpathy" target="_blank">
+                                <svg class="twitter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                                </svg>
+                                @karpathy
+                            </a>
+                        </div>
+                    </div>
+                    <div class="jury-member-bg karpathy-bg"></div>
+                    <div class="karpathy-animation"></div>
+                </div>
+
+                <!-- Tim Soret -->
+                <div class="jury-member jury-member-even" id="soret">
+                    <div class="jury-image-container">
+                        <img src="https://pbs.twimg.com/profile_images/1882867567099809793/qTScdAu-_400x400.jpg" alt="Tim Soret" class="jury-profile-img">
+                    </div>
+                    <div class="jury-info">
+                        <h3 class="jury-name">Tim Soret</h3>
+                        <div class="jury-specialty">Game Developer & Pixel Artist</div>
+                        <p class="jury-bio-expanded">Creative director at Odd Tales and creator of The Last Night. Tim is renowned for his distinctive pixel art style and atmospheric game design. His work combines nostalgic pixel aesthetics with modern rendering techniques to create visually striking gaming experiences.</p>
+                        <div class="jury-social">
+                            <a href="https://twitter.com/timsoret" target="_blank">
+                                <svg class="twitter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                                </svg>
+                                @timsoret
+                            </a>
+                        </div>
+                    </div>
+                    <div class="jury-member-bg soret-bg"></div>
+                    <div class="pixel-grid"></div>
+                    <div class="pixel-art" style="top: 20%; left: 70%;"></div>
+                    <div class="pixel-art" style="top: 60%; left: 20%; animation-delay: -5s;"></div>
+                    <div class="pixel-art" style="top: 40%; left: 40%; animation-delay: -10s;"></div>
+                </div>
+
+                <!-- Ricardo Cabello -->
+                <div class="jury-member" id="cabello">
+                    <div class="jury-image-container">
+                        <img src="https://pbs.twimg.com/profile_images/1619147369999917056/5jd5MK9C_400x400.jpg" alt="Ricardo Cabello" class="jury-profile-img">
+                    </div>
+                    <div class="jury-info">
+                        <h3 class="jury-name">Ricardo Cabello (Mr. Doob)</h3>
+                        <div class="jury-specialty">WebGL & Three.js Creator</div>
+                        <p class="jury-bio-expanded">Creator of Three.js, the most popular JavaScript 3D library, Ricardo has revolutionized web-based 3D graphics. His pioneering work in WebGL has enabled developers worldwide to create immersive 3D experiences directly in the browser without plugins, fundamentally changing what's possible on the web.</p>
+                        <div class="jury-social">
+                            <a href="https://twitter.com/mrdoob" target="_blank">
+                                <svg class="twitter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                                </svg>
+                                @mrdoob
+                            </a>
+                        </div>
+                    </div>
+                    <div class="jury-member-bg cabello-bg"></div>
+                    <div class="three-scene">
+                        <div class="three-object" style="top: 20%; left: 80%;">
+                            <div class="three-face" style="transform: rotateX(0deg) translateZ(20px);"></div>
+                            <div class="three-face" style="transform: rotateX(90deg) translateZ(20px);"></div>
+                            <div class="three-face" style="transform: rotateX(180deg) translateZ(20px);"></div>
+                            <div class="three-face" style="transform: rotateX(270deg) translateZ(20px);"></div>
+                            <div class="three-face" style="transform: rotateY(90deg) translateZ(20px);"></div>
+                            <div class="three-face" style="transform: rotateY(-90deg) translateZ(20px);"></div>
+                        </div>
+                        <div class="three-object" style="top: 70%; left: 30%; animation-delay: -8s;">
+                            <div class="three-face" style="transform: rotateX(0deg) translateZ(20px);"></div>
+                            <div class="three-face" style="transform: rotateX(90deg) translateZ(20px);"></div>
+                            <div class="three-face" style="transform: rotateX(180deg) translateZ(20px);"></div>
+                            <div class="three-face" style="transform: rotateX(270deg) translateZ(20px);"></div>
+                            <div class="three-face" style="transform: rotateY(90deg) translateZ(20px);"></div>
+                            <div class="three-face" style="transform: rotateY(-90deg) translateZ(20px);"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- S13K -->
+                <div class="jury-member jury-member-even" id="s13k">
+                    <div class="jury-image-container">
+                        <img src="https://pbs.twimg.com/profile_images/1889693852845383680/ebZkBpU0_400x400.jpg" alt="S13K" class="jury-profile-img">
+                    </div>
+                    <div class="jury-info">
+                        <h3 class="jury-name">S13K</h3>
+                        <div class="jury-specialty">AI Art & Generative Artist</div>
+                        <p class="jury-bio-expanded">At the forefront of AI-assisted creativity, S13K explores the intersection of artificial intelligence and human expression. Their work pushes the boundaries of what's possible with generative models, creating stunning visual compositions that blend technological innovation with artistic vision.</p>
+                        <div class="jury-social">
+                            <a href="https://twitter.com/s13k_" target="_blank">
+                                <svg class="twitter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                                </svg>
+                                @s13k_
+                            </a>
+                        </div>
+                    </div>
+                    <div class="jury-member-bg s13k-bg"></div>
+                    <div class="generative-art">
+                        <div class="gen-element" style="width: 200px; height: 200px; top: 30%; left: 60%;"></div>
+                        <div class="gen-element" style="width: 150px; height: 150px; top: 60%; left: 20%; animation-delay: -10s;"></div>
+                        <div class="gen-element" style="width: 100px; height: 100px; top: 20%; left: 40%; animation-delay: -20s;"></div>
+                    </div>
+                </div>
+
+                <!-- Pieter Levels -->
+                <div class="jury-member" id="levels">
+                    <div class="jury-image-container">
+                        <img src="https://pbs.twimg.com/media/GmLIqRHXgAAkn2p?format=jpg&name=large" alt="Pieter Levels" class="jury-profile-img">
+                    </div>
+                    <div class="jury-info">
+                        <h3 class="jury-name">Pieter Levels</h3>
+                        <div class="jury-specialty">Indie Maker & Entrepreneur</div>
+                        <p class="jury-bio-expanded">Founder of Nomad List and RemoteOK, Pieter is a prolific indie maker who builds profitable online businesses as a solo founder. Known for his rapid development approach and public building process, he's inspired a generation of bootstrapped entrepreneurs in the tech space.</p>
+                        <div class="jury-social">
+                            <a href="https://twitter.com/levelsio" target="_blank">
+                                <svg class="twitter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                                </svg>
+                                @levelsio
+                            </a>
+                        </div>
+                    </div>
+                    <div class="jury-member-bg levels-bg"></div>
+                    <div class="maker-elements">
+                        <div class="maker-icon" style="top: 30%; left: 20%;">🚀</div>
+                        <div class="maker-icon" style="top: 70%; left: 70%; animation-delay: -5s;">💻</div>
+                        <div class="maker-icon" style="top: 40%; left: 50%; animation-delay: -10s;">🌍</div>
+                        <div class="maker-icon" style="top: 20%; left: 80%; animation-delay: -15s;">💡</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section-background"></div>
+    </section>
+
+    <section id="sponsors">
+        <div class="container">
+            <h2 class="section-title">Sponsors</h2>
+            <div class="sponsors-container">
+                <div class="sponsor" style="animation-delay: 0.1s;">
+                    <div class="sponsor-glow bolt-glow"></div>
+                    <img src="https://pbs.twimg.com/profile_images/1880702021122342912/fe9TlQqJ_400x400.jpg" alt="Bolt" class="sponsor-logo">
+                    <p class="sponsor-handle bolt">
+                        <a href="https://twitter.com/boltdotnew" target="_blank">
+                            <svg class="twitter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                            @boltdotnew
+                        </a>
+                    </p>
+                    <div class="sponsor-particles bolt-particles"></div>
+                </div>
+                <div class="sponsor" style="animation-delay: 0.2s;">
+                    <div class="sponsor-glow rabbit-glow"></div>
+                    <img src="https://pbs.twimg.com/profile_images/1850044644115300353/v5yaxM6N_400x400.jpg" alt="CodeRabbit" class="sponsor-logo">
+                    <p class="sponsor-handle coderabbit">
+                        <a href="https://twitter.com/coderabbitai" target="_blank">
+                            <svg class="twitter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                            @coderabbitai
+                        </a>
+                    </p>
+                    <div class="sponsor-particles rabbit-particles"></div>
+                </div>
+            </div>
+        </div>
+        <div class="section-background sponsors-bg"></div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 Vibe Coding Game Jam | <a href="http://jam.pieter.com" style="color: var(--accent-color); text-decoration: none;">jam.pieter.com</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Observe all jury cards and sponsors
+        document.querySelectorAll('.jury-card, .sponsor').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Particle animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+
+            canvas.style.position = 'fixed';
+            canvas.style.top = '0';
+            canvas.style.left = '0';
+            canvas.style.width = '100%';
+            canvas.style.height = '100%';
+            canvas.style.pointerEvents = 'none';
+            canvas.style.zIndex = '-1';
+
+            document.body.appendChild(canvas);
+
+            let particles = [];
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+
+                // Clear particles and recreate
+                particles = [];
+                for (let i = 0; i < 80; i++) {
+                    const size = Math.random() * 3 + 0.5;
+                    particles.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        size: size,
+                        originalSize: size,
+                        speedX: (Math.random() - 0.5) * 0.8,
+                        speedY: (Math.random() - 0.5) * 0.8,
+                        color: i % 5 === 0 ? '#00ffaa' :
+                               i % 5 === 1 ? '#ff2a75' :
+                               i % 5 === 2 ? '#2a9df4' :
+                               i % 5 === 3 ? '#ffcc00' : '#9933ff',
+                        pulseSpeed: Math.random() * 0.1 + 0.05,
+                        pulseDirection: 1,
+                        pulseFactor: 0
+                    });
+                }
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                particles.forEach(p => {
+                    // Pulse size effect
+                    p.pulseFactor += p.pulseSpeed * p.pulseDirection;
+                    if (p.pulseFactor > 1 || p.pulseFactor < 0) {
+                        p.pulseDirection *= -1;
+                    }
+                    const currentSize = p.originalSize + p.originalSize * 0.5 * p.pulseFactor;
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, currentSize, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.globalAlpha = 0.3 - 0.15 * p.pulseFactor;
+                    ctx.fill();
+
+                    // Update position with slight randomization
+                    p.x += p.speedX + (Math.random() - 0.5) * 0.2;
+                    p.y += p.speedY + (Math.random() - 0.5) * 0.2;
+
+                    // Boundary check with wrapping
+                    if (p.x < -50) p.x = canvas.width + 50;
+                    if (p.x > canvas.width + 50) p.x = -50;
+                    if (p.y < -50) p.y = canvas.height + 50;
+                    if (p.y > canvas.height + 50) p.y = -50;
+                });
+
+                requestAnimationFrame(animate);
+            }
+
+            window.addEventListener('resize', resize);
+            resize();
+            animate();
+
+            // Create animated dots
+            createAnimatedDots();
+
+            // Initialize game-related animations
+            initGameElements();
+        });
+
+        // Create animated dots in the background
+        function createAnimatedDots() {
+            const dotsContainer = document.querySelector('.animated-dots');
+            const numDots = 50;
+
+            for (let i = 0; i < numDots; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+
+                // Random position
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+
+                // Random size
+                const size = Math.random() * 4 + 2;
+
+                // Random color
+                const colors = ['#00ffaa', '#ff2a75', '#2a9df4', '#ffcc00', '#9933ff'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+
+                // Random animation duration
+                const duration = Math.random() * 20 + 10;
+
+                // Set styles
+                dot.style.cssText = `
+                    position: absolute;
+                    top: ${posY}%;
+                    left: ${posX}%;
+                    width: ${size}px;
+                    height: ${size}px;
+                    background-color: ${color};
+                    border-radius: 50%;
+                    opacity: ${Math.random() * 0.5 + 0.1};
+                    filter: blur(${Math.random() * 2}px);
+                    animation: floatDot ${duration}s infinite linear;
+                    animation-delay: -${Math.random() * duration}s;
+                `;
+
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        // Create animated code for code rain
+        function createCodeRain() {
+            const codeRain = document.querySelector('.code-rain');
+            if (!codeRain) return;
+
+            const numLines = 10;
+
+            for (let i = 0; i < numLines; i++) {
+                const line = document.createElement('div');
+                line.className = 'code-line';
+
+                // Random binary/hex content
+                let content = '';
+                const length = Math.floor(Math.random() * 10) + 5;
+                for (let j = 0; j < length; j++) {
+                    content += Math.random() > 0.5 ? '1' : '0';
+                }
+
+                line.textContent = content;
+
+                // Random position and animation timing
+                const posX = Math.random() * 100;
+                const delay = Math.random() * 5;
+                const duration = Math.random() * 10 + 5;
+
+                line.style.cssText = `
+                    position: absolute;
+                    left: ${posX}%;
+                    color: var(--accent-color);
+                    font-family: monospace;
+                    opacity: 0.7;
+                    text-shadow: 0 0 5px var(--accent-color);
+                    animation: codeRainLine ${duration}s infinite linear;
+                    animation-delay: -${delay}s;
+                `;
+
+                codeRain.appendChild(line);
+            }
+        }
+
+        // Initialize game-related animation elements
+        function initGameElements() {
+            // Random positions for game elements
+            document.querySelectorAll('.game-controller').forEach(controller => {
+                if (!controller.style.top) {
+                    controller.style.top = Math.random() * 80 + 10 + '%';
+                    controller.style.left = Math.random() * 80 + 10 + '%';
+                    controller.style.animationDelay = `-${Math.random() * 20}s`;
+                }
+            });
+
+            // Apply glitch effect to title
+            const title = document.querySelector('.highlight');
+            if (title) {
+                // Create glitch elements
+                const glitchBefore = document.createElement('span');
+                const glitchAfter = document.createElement('span');
+
+                glitchBefore.className = 'glitch-effect before';
+                glitchAfter.className = 'glitch-effect after';
+
+                // Insert the glitch elements
+                title.parentNode.insertBefore(glitchBefore, title);
+                title.parentNode.appendChild(glitchAfter);
+
+                // Set content
+                glitchBefore.textContent = title.textContent;
+                glitchAfter.textContent = title.textContent;
+
+                // Add glitch CSS
+                const style = document.createElement('style');
+                style.textContent = `
+                    .title .highlight {
+                        position: relative;
+                    }
+
+                    .glitch-effect {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        opacity: 0.3;
+                    }
+
+                    .glitch-effect.before {
+                        animation: glitch 4s infinite linear alternate-reverse;
+                        color: var(--secondary-color);
+                        z-index: -1;
+                    }
+
+                    .glitch-effect.after {
+                        animation: glitch 3s infinite linear alternate;
+                        color: var(--tertiary-color);
+                        z-index: -2;
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+
+            // Add spin effect to rotating shapes
+            document.querySelectorAll('.spinning-pyramid, .spinning-sphere').forEach((shape, index) => {
+                shape.style.animationDelay = `-${index * 2}s`;
+            });
+
+            // Make diamond actually float
+            const diamonds = document.querySelectorAll('.diamond');
+            diamonds.forEach(diamond => {
+                diamond.style.animationDelay = `-${Math.random() * 10}s`;
+
+                // Float animation on Y-axis
+                setInterval(() => {
+                    const randomY = Math.random() * 20 - 10;
+                    diamond.style.transform = `translateY(${randomY}px)`;
+                }, 2000);
+            });
+        }
+
+        // Cursor effect
+        document.addEventListener('DOMContentLoaded', function() {
+            const cursor = document.createElement('div');
+            cursor.style.position = 'fixed';
+            cursor.style.width = '20px';
+            cursor.style.height = '20px';
+            cursor.style.borderRadius = '50%';
+            cursor.style.border = '2px solid var(--accent-color)';
+            cursor.style.pointerEvents = 'none';
+            cursor.style.transform = 'translate(-50%, -50%)';
+            cursor.style.zIndex = '9999';
+            cursor.style.opacity = '0';
+            cursor.style.transition = 'transform 0.1s ease, opacity 0.3s ease, border 0.3s ease';
+            cursor.style.mixBlendMode = 'difference';
+
+            const cursorDot = document.createElement('div');
+            cursorDot.style.position = 'fixed';
+            cursorDot.style.width = '5px';
+            cursorDot.style.height = '5px';
+            cursorDot.style.borderRadius = '50%';
+            cursorDot.style.backgroundColor = 'var(--accent-color)';
+            cursorDot.style.pointerEvents = 'none';
+            cursorDot.style.transform = 'translate(-50%, -50%)';
+            cursorDot.style.zIndex = '9999';
+            cursorDot.style.opacity = '0';
+            cursorDot.style.transition = 'opacity 0.3s ease, background-color 0.3s ease';
+            cursorDot.style.mixBlendMode = 'difference';
+
+            document.body.appendChild(cursor);
+            document.body.appendChild(cursorDot);
+
+            document.addEventListener('mousemove', e => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                cursor.style.opacity = '1';
+
+                cursorDot.style.left = e.clientX + 'px';
+                cursorDot.style.top = e.clientY + 'px';
+                cursorDot.style.opacity = '1';
+            });
+
+            document.addEventListener('mouseenter', () => {
+                cursor.style.opacity = '1';
+                cursorDot.style.opacity = '1';
+            });
+
+            document.addEventListener('mouseleave', () => {
+                cursor.style.opacity = '0';
+                cursorDot.style.opacity = '0';
+            });
+
+            // Scale effect and color change on links and buttons
+            const links = document.querySelectorAll('a, button');
+
+            links.forEach(link => {
+                link.addEventListener('mouseenter', () => {
+                    cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                    cursor.style.border = '2px solid var(--secondary-color)';
+                    cursorDot.style.backgroundColor = 'var(--secondary-color)';
+                });
+
+                link.addEventListener('mouseleave', () => {
+                    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                    cursor.style.border = '2px solid var(--accent-color)';
+                    cursorDot.style.backgroundColor = 'var(--accent-color)';
+                });
+            });
+
+            // Different cursor effect for jury cards
+            const juryCards = document.querySelectorAll('.jury-card');
+
+            juryCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    cursor.style.transform = 'translate(-50%, -50%) scale(1.2)';
+                    cursor.style.border = '2px solid var(--tertiary-color)';
+                    cursor.style.borderWidth = '3px';
+                    cursorDot.style.backgroundColor = 'var(--tertiary-color)';
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                    cursor.style.border = '2px solid var(--accent-color)';
+                    cursor.style.borderWidth = '2px';
+                    cursorDot.style.backgroundColor = 'var(--accent-color)';
+                });
+            });
+
+            // Call code rain animation
+            createCodeRain();
+
+            // Make game elements react to mouse
+            document.addEventListener('mousemove', function(e) {
+                const mouseX = e.clientX / window.innerWidth;
+                const mouseY = e.clientY / window.innerHeight;
+
+                // Game buttons follow cursor
+                document.querySelectorAll('.game-button').forEach((button, index) => {
+                    const distance = 15 + (index * 5);
+                    const buttonRect = button.getBoundingClientRect();
+                    const buttonCenterX = buttonRect.left + buttonRect.width / 2;
+                    const buttonCenterY = buttonRect.top + buttonRect.height / 2;
+
+                    const angle = Math.atan2(e.clientY - buttonCenterY, e.clientX - buttonCenterX);
+                    const repelX = Math.cos(angle) * distance;
+                    const repelY = Math.sin(angle) * distance;
+
+                    button.style.transform = `translate(${-repelX}px, ${-repelY}px)`;
+                });
+            });
+        });
+
+        // 3D tilt effect on cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.jury-card-front, .sponsor');
+
+            cards.forEach(card => {
+                card.addEventListener('mousemove', e => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left; // x position within the card
+                    const y = e.clientY - rect.top; // y position within the card
+
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+
+                    const tiltX = (centerY - y) / 10;
+                    const tiltY = (x - centerX) / 10;
+
+                    // Only apply to sponsors, not jury cards (which have flip effect)
+                    if (card.classList.contains('sponsor')) {
+                        card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-10px)`;
+                    }
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    // Only apply to sponsors, not jury cards (which have flip effect)
+                    if (card.classList.contains('sponsor')) {
+                        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+                    }
+                });
+            });
+        });
+
+        // Load fallback images if profile images fail to load
+        document.addEventListener('DOMContentLoaded', function() {
+            const profileImages = document.querySelectorAll('.profile-img');
+            profileImages.forEach(img => {
+                img.addEventListener('error', function() {
+                    // Set a fallback image if profile image fails to load
+                    this.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzAwZmZhYSI+PHBhdGggZD0iTTEyIDJDNi40NzcgMiAyIDYuNDc3IDIgMTJzNC40NzcgMTAgMTAgMTAgMTAtNC40NzcgMTAtMTBTMTcuNTIzIDIgMTIgMnptMCAxOGMtMS44MjMgMC0zLjQ4LS43MzktNC42ODQtMS45MzIuNDgtLjg4MSAxLjIxMi0xLjYyNSAyLjExNS0yLjEzQzEwLjQwMiAxNS4zNTMgMTEuMTczIDE1IDEyIDE1YzEuMTUgMCAyLjIyMS41ODkgMi44NDggMS41NjhhOS4wOSA5LjA5IDAgMCAxLS44NDggMS40MzJDMTMuMjc4IDE4Ljk4OSAxMi42NDYgMTkgMTIgMTl6bTAtMTVjMi4yMDkgMCA0IDE3NzkxIDQgNGMwIDIuMjA5LTEuNzkxIDQtNCA0cy00LTEuNzkxLTQtNCAxLjc5MS00IDQtNHptNi44MTYgMTMuNzA3Qzk3My43NDQgMTUuMjA5IDEwLjc3OCAxNCAxMSAxNGMwLS41NTIuNDQ4LTEgMS0xczEgLjQ0OCAxIDF2LjE2OWwtLjAwNS4wMTVjMCAuMDAyIDAgLjAwMi0uMDAxLjAwM2EuOTQ3Ljk0NyAwIDAgMS0uMDI4LjA4OGwtLjAwOC4wMjNhLjk1Ljk1IDAgMCAxLS4wMjYuMDYxYy0uMDA3LjAxNS0uMDE0LjAyOS0uMDIzLjA0M2ExLjAyIDEuMDIgMCAwIDEtLjEzMi4xNiA4LjA5OCA4LjA5OCAwIDAgMS0zLjEwMSAxLjE5OHptMS41OTQtLjIyNWMxLjU5Ni0xLjQwNCAyLjU5LTMuNDYzIDIuNTktNS43NDJDMTY3Ljk3N0MxNiA3LjAyMyA5Ljk3NyAyIDBzMy4wMjMtMTIgOC0xMnoiLz48L3N2Zz4=';
+                    this.style.padding = '1.5rem';
+                });
+            });
+
+            const sponsorLogos = document.querySelectorAll('.sponsor-logo');
+            sponsorLogos.forEach(img => {
+                img.addEventListener('error', function() {
+                    // Set a fallback image if sponsor logo fails to load
+                    if(this.closest('.sponsor').querySelector('.bolt')) {
+                        this.style.display = 'none';
+                        this.closest('.sponsor').querySelector('.sponsor-handle').style.fontSize = '2.5rem';
+                    } else if(this.closest('.sponsor').querySelector('.coderabbit')) {
+                        this.style.display = 'none';
+                        this.closest('.sponsor').querySelector('.sponsor-handle').style.fontSize = '2.5rem';
+                    }
+                });
+            });
+
+            // Add floating animation for dots
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes floatDot {
+                    0%, 100% {
+                        transform: translate(0, 0);
+                    }
+                    25% {
+                        transform: translate(15px, 15px);
+                    }
+                    50% {
+                        transform: translate(0, 30px);
+                    }
+                    75% {
+                        transform: translate(-15px, 15px);
+                    }
+                }
+
+                @keyframes codeRainLine {
+                    0% {
+                        top: -20%;
+                        opacity: 0;
+                    }
+                    10% {
+                        opacity: 0.7;
+                    }
+                    90% {
+                        opacity: 0.7;
+                    }
+                    100% {
+                        top: 120%;
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+
+        // Add parallax effect to floating elements
+        document.addEventListener('mousemove', function(e) {
+            const floatingElements = document.querySelectorAll('.floating-element');
+            const rotatingCube = document.querySelector('.rotating-cube');
+            const gameElements = document.querySelectorAll('.game-controller, .pixel-character, .spinning-pyramid, .spinning-sphere');
+            const tetrahedron = document.querySelector('.rotating-tetrahedron');
+
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+
+            floatingElements.forEach((el, index) => {
+                const depth = 0.1 + (index * 0.05);
+                const moveX = (mouseX - 0.5) * depth * 100;
+                const moveY = (mouseY - 0.5) * depth * 100;
+
+                el.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            });
+
+            // Add parallax to game elements
+            gameElements.forEach((el, index) => {
+                const depth = 0.05 + (index * 0.02);
+                const moveX = (mouseX - 0.5) * depth * 60;
+                const moveY = (mouseY - 0.5) * depth * 60;
+
+                // Add parallax movement without overriding existing animations
+                el.style.marginLeft = `${moveX}px`;
+                el.style.marginTop = `${moveY}px`;
+            });
+
+            if (rotatingCube) {
+                rotatingCube.style.transform = `translateX(${(mouseX - 0.5) * 40}px) translateY(${(mouseY - 0.5) * 40}px) rotateX(${mouseY * 30}deg) rotateY(${-mouseX * 30}deg)`;
+            }
+
+            if (tetrahedron) {
+                tetrahedron.style.marginLeft = `${(mouseX - 0.5) * 50}px`;
+                tetrahedron.style.marginTop = `${(mouseY - 0.5) * 50}px`;
+            }
+
+            // Add additional parallax effect for jury members
+            const juryImages = document.querySelectorAll('.jury-image-container');
+            juryImages.forEach(img => {
+                const rect = img.getBoundingClientRect();
+                const imgCenterX = rect.left + rect.width / 2;
+                const imgCenterY = rect.top + rect.height / 2;
+
+                const deltaX = (e.clientX - imgCenterX) / 40;
+                const deltaY = (e.clientY - imgCenterY) / 40;
+
+                img.style.transform = `perspective(1000px) rotateY(${deltaX}deg) rotateX(${-deltaY}deg) translateZ(10px)`;
+            });
+        });
+
+        // Add more game-themed animation effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Make title react to click
+            const title = document.querySelector('.title');
+            if (title) {
+                title.addEventListener('click', function() {
+                    title.style.animation = 'none';
+                    title.offsetHeight; // Trigger reflow
+                    title.style.animation = 'titlePulse 3s infinite alternate, glitch 0.5s';
+
+                    // Create pixel explosion effect
+                    createPixelExplosion(title);
+                });
+            }
+
+            // Initialize jury animations
+            initJuryAnimations();
+
+            // Create pixel explosion effect
+            function createPixelExplosion(element) {
+                const rect = element.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+
+                const colors = ['#00ffaa', '#ff2a75', '#2a9df4', '#ffcc00', '#9933ff'];
+
+                // Create pixels
+                for (let i = 0; i < 30; i++) {
+                    const pixel = document.createElement('div');
+                    const size = Math.random() * 6 + 4;
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = Math.random() * 100 + 50;
+                    const duration = Math.random() * 1 + 0.5;
+                    const colorIndex = Math.floor(Math.random() * colors.length);
+
+                    pixel.style.cssText = `
+                        position: fixed;
+                        top: ${centerY}px;
+                        left: ${centerX}px;
+                        width: ${size}px;
+                        height: ${size}px;
+                        background-color: ${colors[colorIndex]};
+                        z-index: 9998;
+                        pointer-events: none;
+                    `;
+
+                    document.body.appendChild(pixel);
+
+                    // Animate pixel
+                    const destX = centerX + Math.cos(angle) * distance;
+                    const destY = centerY + Math.sin(angle) * distance;
+
+                    pixel.animate([
+                        { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
+                        { transform: `translate(${destX - centerX}px, ${destY - centerY}px) scale(0)`, opacity: 0 }
+                    ], {
+                        duration: duration * 1000,
+                        easing: 'cubic-bezier(0.1, 0.9, 0.2, 1)'
+                    }).onfinish = () => {
+                        pixel.remove();
+                    };
+                }
+            }
+
+            // Initialize jury section animations
+            function initJuryAnimations() {
+                // Create Karpathy's neural network animation
+                const karpathyAnimation = document.querySelector('.karpathy-animation');
+                if (karpathyAnimation) {
+                    for (let i = 0; i < 30; i++) {
+                        const connection = document.createElement('div');
+                        connection.className = 'neural-connection';
+
+                        // Position randomly
+                        connection.style.left = `${Math.random() * 100}%`;
+                        connection.style.top = `${Math.random() * 100}%`;
+
+                        // Random animation delay
+                        connection.style.animationDelay = `-${Math.random() * 3}s`;
+
+                        karpathyAnimation.appendChild(connection);
+                    }
+
+                    // Create connections between nodes
+                    const connections = karpathyAnimation.querySelectorAll('.neural-connection');
+                    for (let i = 0; i < connections.length; i++) {
+                        for (let j = i + 1; j < connections.length; j++) {
+                            if (Math.random() > 0.8) { // Only create some connections
+                                const line = document.createElement('div');
+                                line.className = 'neural-line';
+                                line.style.cssText = `
+                                    position: absolute;
+                                    height: 1px;
+                                    background-color: var(--accent-color);
+                                    opacity: 0.2;
+                                    transform-origin: left center;
+                                    z-index: 0;
+                                `;
+
+                                // Update position on animation frame
+                                const updatePosition = () => {
+                                    const rect1 = connections[i].getBoundingClientRect();
+                                    const rect2 = connections[j].getBoundingClientRect();
+                                    const containerRect = karpathyAnimation.getBoundingClientRect();
+
+                                    const x1 = rect1.left - containerRect.left + rect1.width / 2;
+                                    const y1 = rect1.top - containerRect.top + rect1.height / 2;
+                                    const x2 = rect2.left - containerRect.left + rect2.width / 2;
+                                    const y2 = rect2.top - containerRect.top + rect2.height / 2;
+
+                                    const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+                                    const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+
+                                    line.style.width = `${length}px`;
+                                    line.style.left = `${x1}px`;
+                                    line.style.top = `${y1}px`;
+                                    line.style.transform = `rotate(${angle}deg)`;
+
+                                    requestAnimationFrame(updatePosition);
+                                };
+
+                                karpathyAnimation.appendChild(line);
+                                updatePosition();
+                            }
+                        }
+                    }
+                }
+
+                // Create pixel art for Soret's section
+                const pixelArtElements = document.querySelectorAll('.pixel-art');
+                pixelArtElements.forEach(element => {
+                    // Create 8-bit style pixel art
+                    const colors = ['#ff2a75', '#ff4d8e', '#ff70a6', '#ff94be'];
+                    const size = 6; // Pixel size
+                    const grid = 10; // Grid size
+
+                    const pixelArt = document.createElement('div');
+                    pixelArt.style.width = '100%';
+                    pixelArt.style.height = '100%';
+                    pixelArt.style.display = 'grid';
+                    pixelArt.style.gridTemplateColumns = `repeat(${grid}, 1fr)`;
+                    pixelArt.style.gridTemplateRows = `repeat(${grid}, 1fr)`;
+
+                    // Generate random pixel art
+                    for (let i = 0; i < grid * grid; i++) {
+                        if (Math.random() > 0.6) { // Only fill some pixels
+                            const pixel = document.createElement('div');
+                            pixel.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                            pixelArt.appendChild(pixel);
+                        } else {
+                            const emptyPixel = document.createElement('div');
+                            emptyPixel.style.backgroundColor = 'transparent';
+                            pixelArt.appendChild(emptyPixel);
+                        }
+                    }
+
+                    element.appendChild(pixelArt);
+                });
+
+                // Add scroll animation for jury members
+                const juryObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                        }
+                    });
+                }, { threshold: 0.2 });
+
+                document.querySelectorAll('.jury-member').forEach(member => {
+                    juryObserver.observe(member);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
