@@ -226,8 +226,9 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
-            opacity: 1; /* Set to 1 for testing */
-            animation: none; /* Disable animation for testing */
+            opacity: 0;
+            animation: neonPulse 3s infinite alternate;
+            animation: fadeUp 1s ease forwards 1.2s;
         }
 
         .cta-button::before {
