@@ -15,6 +15,11 @@
             --tertiary-color: #2a9df4;
             --quaternary-color: #ffcc00;
             --quinary-color: #9933ff;
+            --neon-pink: #ff00ff;
+            --neon-blue: #00c8ff;
+            --neon-purple: #bc13fe;
+            --neon-orange: #ff9d00;
+            --neon-green: #39ff14;
         }
 
         * {
@@ -359,6 +364,25 @@
             margin-bottom: 3rem;
             position: relative;
             display: inline-block;
+            text-shadow:
+                0 0 5px var(--accent-color),
+                0 0 10px var(--accent-color);
+            animation: sectionTitleGlow 3s infinite alternate;
+        }
+
+        @keyframes sectionTitleGlow {
+            0% {
+                text-shadow:
+                    0 0 5px var(--accent-color),
+                    0 0 10px var(--accent-color);
+            }
+            100% {
+                text-shadow:
+                    0 0 5px var(--accent-color),
+                    0 0 10px var(--accent-color),
+                    0 0 20px var(--accent-color),
+                    0 0 30px var(--accent-color);
+            }
         }
 
         .section-title::after {
@@ -1533,28 +1557,37 @@
 
         .neural-connection {
             position: absolute;
-            background-color: var(--accent-color);
-            width: 2px;
-            height: 2px;
+            width: 4px;
+            height: 4px;
             border-radius: 50%;
-            opacity: 0.3;
-            animation: neuralPulse 3s infinite linear;
-            box-shadow: 0 0 8px var(--accent-color);
+            background-color: var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-color), 0 0 20px var(--accent-color);
+            opacity: 0.4;
+            z-index: 1;
         }
 
-        @keyframes neuralPulse {
-            0% {
-                opacity: 0;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 0.4;
-                transform: scale(1.5);
-            }
-            100% {
-                opacity: 0;
-                transform: scale(1);
-            }
+        .neural-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(to right, rgba(0, 255, 170, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 255, 170, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            z-index: 0;
+            opacity: 0.3;
+        }
+
+        .brain-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.15;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgc3Ryb2tlPSIjMDBmZmFhIiBzdHJva2Utd2lkdGg9IjAuNSIgZmlsbD0ibm9uZSIgLz48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIxMCIgc3Ryb2tlPSIjMDBmZmFhIiBzdHJva2Utd2lkdGg9IjAuNSIgZmlsbD0ibm9uZSIgLz48Y2lyY2xlIGN4PSI3MCIgY3k9IjMwIiByPSIxMCIgc3Ryb2tlPSIjMDBmZmFhIiBzdHJva2Utd2lkdGg9IjAuNSIgZmlsbD0ibm9uZSIgLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjcwIiByPSIxMCIgc3Ryb2tlPSIjMDBmZmFhIiBzdHJva2Utd2lkdGg9IjAuNSIgZmlsbD0ibm9uZSIgLz48cGF0aCBkPSJNMzAgMzAgTDUwIDUwIE03MCAzMCBMNTAgNTAgTDUwIDcwIiBzdHJva2U9IiMwMGZmYWEiIHN0cm9rZS13aWR0aD0iMC41IiBmaWxsPSJub25lIiAvPjwvc3ZnPg==');
+            background-size: 100px 100px;
+            z-index: 0;
         }
 
         /* Soret - Pixel art themed background */
@@ -1751,6 +1784,203 @@
                 justify-content: center;
             }
         }
+
+        /* Enhanced neon glow effects */
+        .neon-glow {
+            text-shadow:
+                0 0 5px var(--accent-color),
+                0 0 10px var(--accent-color),
+                0 0 20px var(--accent-color),
+                0 0 40px var(--accent-color);
+            animation: neonPulse 3s infinite alternate;
+        }
+
+        .neon-border {
+            border: 2px solid var(--accent-color);
+            box-shadow:
+                0 0 5px var(--accent-color),
+                0 0 10px var(--accent-color),
+                0 0 15px var(--accent-color),
+                inset 0 0 5px var(--accent-color);
+            animation: borderPulse 4s infinite alternate;
+        }
+
+        @keyframes neonPulse {
+            0% {
+                opacity: 0.8;
+            }
+            100% {
+                opacity: 1;
+                text-shadow:
+                    0 0 5px var(--accent-color),
+                    0 0 10px var(--accent-color),
+                    0 0 20px var(--accent-color),
+                    0 0 40px var(--accent-color),
+                    0 0 80px var(--accent-color);
+            }
+        }
+
+        @keyframes borderPulse {
+            0% {
+                box-shadow:
+                    0 0 5px var(--accent-color),
+                    0 0 10px var(--accent-color),
+                    0 0 15px var(--accent-color),
+                    inset 0 0 5px var(--accent-color);
+            }
+            100% {
+                box-shadow:
+                    0 0 10px var(--accent-color),
+                    0 0 20px var(--accent-color),
+                    0 0 30px var(--accent-color),
+                    inset 0 0 10px var(--accent-color);
+            }
+        }
+
+        /* Add more neon elements to the hero section */
+        .neon-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .neon-line {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                var(--neon-pink),
+                var(--neon-blue),
+                var(--neon-purple),
+                transparent
+            );
+            animation: neonLineSweep 8s linear infinite;
+            opacity: 0.5;
+        }
+
+        .neon-line:nth-child(1) {
+            width: 80%;
+            left: 10%;
+            top: 20%;
+            animation-delay: 0s;
+        }
+
+        .neon-line:nth-child(2) {
+            width: 90%;
+            left: 5%;
+            top: 40%;
+            animation-delay: -2s;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                var(--neon-green),
+                var(--accent-color),
+                var(--neon-green),
+                transparent
+            );
+        }
+
+        .neon-line:nth-child(3) {
+            width: 60%;
+            left: 20%;
+            top: 60%;
+            animation-delay: -4s;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                var(--secondary-color),
+                var(--neon-pink),
+                var(--secondary-color),
+                transparent
+            );
+        }
+
+        .neon-line:nth-child(4) {
+            width: 70%;
+            left: 15%;
+            top: 80%;
+            animation-delay: -6s;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                var(--neon-blue),
+                var(--tertiary-color),
+                var(--neon-blue),
+                transparent
+            );
+        }
+
+        .neon-circle {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid var(--accent-color);
+            opacity: 0.3;
+            animation: neonCirclePulse 8s infinite alternate;
+        }
+
+        .neon-circle:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 20%;
+            left: 60%;
+            border-color: var(--neon-pink);
+            animation-delay: -2s;
+        }
+
+        .neon-circle:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 60%;
+            left: 20%;
+            border-color: var(--neon-blue);
+            animation-delay: -4s;
+        }
+
+        .neon-circle:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            top: 40%;
+            left: 70%;
+            border-color: var(--neon-green);
+            animation-delay: -6s;
+        }
+
+        @keyframes neonLineSweep {
+            0% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            10%, 90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        @keyframes neonCirclePulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.2;
+                box-shadow:
+                    0 0 5px currentColor,
+                    0 0 10px currentColor;
+            }
+            100% {
+                transform: scale(1.2);
+                opacity: 0.4;
+                box-shadow:
+                    0 0 10px currentColor,
+                    0 0 20px currentColor,
+                    0 0 30px currentColor;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1766,6 +1996,19 @@
             </div>
             <div class="animated-dots"></div>
             <div class="circuit-board"></div>
+
+            <!-- Add new neon elements -->
+            <div class="neon-lines">
+                <div class="neon-line"></div>
+                <div class="neon-line"></div>
+                <div class="neon-line"></div>
+                <div class="neon-line"></div>
+            </div>
+            <div class="neon-circles">
+                <div class="neon-circle"></div>
+                <div class="neon-circle"></div>
+                <div class="neon-circle"></div>
+            </div>
 
             <div class="game-elements">
                 <div class="game-controller" style="top: 20%; left: 15%;"></div>
@@ -1812,8 +2055,8 @@
                     <span>Game Jam</span>
                 </h1>
                 <p class="subtitle">The first game jam for AI vibecoded games</p>
-                <p class="hashtag">#vibejam</p>
-                <a href="http://jam.pieter.com" class="cta-button">
+                <p class="hashtag neon-glow">#vibejam</p>
+                <a href="http://jam.pieter.com" class="cta-button neon-border">
                     <span>SUBMIT YOUR GAME</span>
                     <div class="button-glow"></div>
                 </a>
@@ -1837,8 +2080,35 @@
         <div class="container">
             <h2 class="section-title">Jury</h2>
             <div class="jury-container">
-                <!-- Andrej Karpathy -->
-                <div class="jury-member" id="karpathy">
+                <!-- Pieter Levels (Now First) -->
+                <div class="jury-member" id="levels">
+                    <div class="jury-image-container">
+                        <img src="https://pbs.twimg.com/media/GmLIqRHXgAAkn2p?format=jpg&name=large" alt="Pieter Levels" class="jury-profile-img">
+                    </div>
+                    <div class="jury-info">
+                        <h3 class="jury-name">Pieter Levels</h3>
+                        <div class="jury-specialty">Indie Maker & Entrepreneur</div>
+                        <p class="jury-bio-expanded">Founder of Nomad List and RemoteOK, Pieter is a prolific indie maker who builds profitable online businesses as a solo founder. Known for his rapid development approach and public building process, he's inspired a generation of bootstrapped entrepreneurs in the tech space.</p>
+                        <div class="jury-social">
+                            <a href="https://twitter.com/levelsio" target="_blank">
+                                <svg class="twitter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                                </svg>
+                                @levelsio
+                            </a>
+                        </div>
+                    </div>
+                    <div class="jury-member-bg levels-bg"></div>
+                    <div class="maker-elements">
+                        <div class="maker-icon" style="top: 30%; left: 20%;">🚀</div>
+                        <div class="maker-icon" style="top: 70%; left: 70%; animation-delay: -5s;">💻</div>
+                        <div class="maker-icon" style="top: 40%; left: 50%; animation-delay: -10s;">🌍</div>
+                        <div class="maker-icon" style="top: 20%; left: 80%; animation-delay: -15s;">💡</div>
+                    </div>
+                </div>
+
+                <!-- Andrej Karpathy with Updated Animation -->
+                <div class="jury-member jury-member-even" id="karpathy">
                     <div class="jury-image-container">
                         <img src="https://pbs.twimg.com/profile_images/1296667294148382721/9Pr6XrPB_400x400.jpg" alt="Andrej Karpathy" class="jury-profile-img">
                     </div>
@@ -1856,11 +2126,14 @@
                         </div>
                     </div>
                     <div class="jury-member-bg karpathy-bg"></div>
-                    <div class="karpathy-animation"></div>
+                    <div class="karpathy-animation">
+                        <div class="neural-grid"></div>
+                        <div class="brain-pattern"></div>
+                    </div>
                 </div>
 
                 <!-- Tim Soret -->
-                <div class="jury-member jury-member-even" id="soret">
+                <div class="jury-member" id="soret">
                     <div class="jury-image-container">
                         <img src="https://pbs.twimg.com/profile_images/1882867567099809793/qTScdAu-_400x400.jpg" alt="Tim Soret" class="jury-profile-img">
                     </div>
@@ -1885,7 +2158,7 @@
                 </div>
 
                 <!-- Ricardo Cabello -->
-                <div class="jury-member" id="cabello">
+                <div class="jury-member jury-member-even" id="cabello">
                     <div class="jury-image-container">
                         <img src="https://pbs.twimg.com/profile_images/1619147369999917056/5jd5MK9C_400x400.jpg" alt="Ricardo Cabello" class="jury-profile-img">
                     </div>
@@ -1924,7 +2197,7 @@
                 </div>
 
                 <!-- S13K -->
-                <div class="jury-member jury-member-even" id="s13k">
+                <div class="jury-member" id="s13k">
                     <div class="jury-image-container">
                         <img src="https://pbs.twimg.com/profile_images/1889693852845383680/ebZkBpU0_400x400.jpg" alt="S13K" class="jury-profile-img">
                     </div>
@@ -1946,33 +2219,6 @@
                         <div class="gen-element" style="width: 200px; height: 200px; top: 30%; left: 60%;"></div>
                         <div class="gen-element" style="width: 150px; height: 150px; top: 60%; left: 20%; animation-delay: -10s;"></div>
                         <div class="gen-element" style="width: 100px; height: 100px; top: 20%; left: 40%; animation-delay: -20s;"></div>
-                    </div>
-                </div>
-
-                <!-- Pieter Levels -->
-                <div class="jury-member" id="levels">
-                    <div class="jury-image-container">
-                        <img src="https://pbs.twimg.com/media/GmLIqRHXgAAkn2p?format=jpg&name=large" alt="Pieter Levels" class="jury-profile-img">
-                    </div>
-                    <div class="jury-info">
-                        <h3 class="jury-name">Pieter Levels</h3>
-                        <div class="jury-specialty">Indie Maker & Entrepreneur</div>
-                        <p class="jury-bio-expanded">Founder of Nomad List and RemoteOK, Pieter is a prolific indie maker who builds profitable online businesses as a solo founder. Known for his rapid development approach and public building process, he's inspired a generation of bootstrapped entrepreneurs in the tech space.</p>
-                        <div class="jury-social">
-                            <a href="https://twitter.com/levelsio" target="_blank">
-                                <svg class="twitter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                                </svg>
-                                @levelsio
-                            </a>
-                        </div>
-                    </div>
-                    <div class="jury-member-bg levels-bg"></div>
-                    <div class="maker-elements">
-                        <div class="maker-icon" style="top: 30%; left: 20%;">🚀</div>
-                        <div class="maker-icon" style="top: 70%; left: 70%; animation-delay: -5s;">💻</div>
-                        <div class="maker-icon" style="top: 40%; left: 50%; animation-delay: -10s;">🌍</div>
-                        <div class="maker-icon" style="top: 20%; left: 80%; animation-delay: -15s;">💡</div>
                     </div>
                 </div>
             </div>
